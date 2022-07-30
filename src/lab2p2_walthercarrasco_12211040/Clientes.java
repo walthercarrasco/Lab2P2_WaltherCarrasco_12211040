@@ -33,6 +33,15 @@ public class Clientes {
         this.edad = e;
     }
     
+    public String listarcar(){
+        Carros ca = new Carros();
+        if(ca.getCliente().equals(ID)){
+            return "\nCliente: " + ID + ca.toString();
+        }else{
+            return "";
+        } 
+    }    
+    
     public String toString(){
         return "Nombre: " + nombre + "\nEdad: " + edad + "\nIdentidad: " + ID;
     }

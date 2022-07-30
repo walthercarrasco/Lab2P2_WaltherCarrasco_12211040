@@ -3,6 +3,7 @@ package lab2p2_walthercarrasco_12211040;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Date;
 
 public class Lab2P2_WaltherCarrasco_12211040 {
     
@@ -19,7 +20,7 @@ public class Lab2P2_WaltherCarrasco_12211040 {
         //ArrayList de Clases
         ArrayList<Empleados> em = new ArrayList<>();
         ArrayList<Clientes> cli = new ArrayList<>();
-        ArrayList<Carros> ca = new ArrayList<>();
+        ArrayList<Carros> car = new ArrayList<>();
         
         System.out.println("    Inicio de Sesion");
         System.out.print("Usuario: ");
@@ -128,6 +129,10 @@ public class Lab2P2_WaltherCarrasco_12211040 {
                         break;
                         
                         case 5:
+                            for (int i = 0; i < cli.size(); i++){
+                                System.out.println(cli.get(i).listarcar());
+                                System.out.println();
+                            }                          
                         break;
                         
                         default:
@@ -270,11 +275,75 @@ public class Lab2P2_WaltherCarrasco_12211040 {
                 
                 case 3:
                     System.out.println("\n1) Crear"
-                            + "\n2) Modificar"
-                            + "\n3) Eliminar"
-                            + "\n4) Listar Carros"
-                            + "\n5) Modificar Estado de Reparacion");
+                            + "\n2) Listar Carros"
+                            + "\n3) Modificar Estado de Reparacion");
+                    System.out.print("Opcion: ");
+                    int opcionca = leer.nextInt();
                     
+                    switch(opcionca){
+                        case 1:
+                            System.out.print("Ingrese el numero de identidad del cliente dueño: ");
+                            String id = leer.next();
+                            
+                            boolean valida = true;
+                            while(valida == true){
+                                for(int i = 0; i < cli.size(); i++){
+                                    if(cli.get(i).getID().equals(id)){
+                                        valida = false;
+                                    }else{
+                                        System.out.println("Cliente no existe en la base de datos");
+                                        System.out.print("Ingrese el numero de identidad del cliente dueño: ");
+                                        id = leer.next();                                         
+                                    }
+                                }
+                            }
+                            
+                            System.out.print("Marca: ");
+                            leer = new Scanner(System.in);
+                            String ma = leer.nextLine();
+                            
+                            System.out.print("Modelo: ");
+                            leer = new Scanner(System.in);
+                            String mo = leer.nextLine();
+                            
+                            System.out.print("Año de Fabricacion: ");
+                            int ano = leer.nextInt();
+                            
+                            System.out.print("Costo de reparacion: ");
+                            double costo = leer.nextDouble();
+                            Date fe = new Date();
+                            
+                            car.add(new Carros(ma, mo, ano, fe, 1, costo, id));
+                        break;
+                        
+                        case 2:
+                            for (Object obj : car) {
+                                System.out.println(obj.toString());
+                                System.out.println();
+                            }
+                        break;
+                        
+                        case 3:
+                            System.out.print("Numero del auto: ");
+                            int num = leer.nextInt();
+                            if(num < car.size()){
+                                car.get(num).setEstado();
+                            }else{
+                                System.out.println("No hay esa catidad de carros");
+                            }
+                            if(car.get(num).getEstado() == 3){
+                                System.out.println("Por donde desea pagar el costo?"
+                                        + "\n1) Banco"
+                                        + "\n2) En taller");
+                                int op = leer.nextInt();
+                                if(op == 1){
+                                    car.get(num).setEstado(6);
+                                }
+                            }
+                        break;
+                        
+                        
+                    }
                 break;
                 
                 case 4: 
